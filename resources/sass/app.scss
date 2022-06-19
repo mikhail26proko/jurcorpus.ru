@@ -1,0 +1,60 @@
+/*Variables*/
+$main_logo_width    : 3rem;
+$main_logo_heigth   : 1rem;
+
+$main_color         : #ffffff;
+$main_red_color     : #7b3e37;
+
+
+html {
+    position: relative;
+    max-width: 100%;
+    min-height: 100%;
+}
+body{
+    min-width: 320px;
+}
+div.leftMainMenu{
+    // float:left;
+    min-width:300px;
+    width:$main_logo_width;
+    height: 100%;
+    background: $main_color;
+    box-shadow: 0 0 10px rgb(0 0 0 / 35);
+    padding: 15px 20px;
+    div.menu_item{
+        font-weight: bold;
+        text-transform: uppercase;
+        min-height: 3rem;
+        vertical-align: middle;
+    }
+}
+
+div.main{
+    // float:right;
+}
+
+.upMainMenu{
+    width: 100%;
+}
+div.logotype{
+    height:4rem;
+    margin: 15px 20px;
+}
+.logo{
+    width: 100%;
+}
+
+.center{
+    margin: 0 auto;
+}
+
+.red_hand{
+    color:#ff0000;
+    font-family: "Snell Roundhand"
+}
+
+
+
+@import '~bootstrap';
+@import '~bootstrap-icons/font/bootstrap-icons';
