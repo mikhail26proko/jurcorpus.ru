@@ -1,43 +1,54 @@
-version: '3'
+version: '3.8'
 services:
-    app:
-      build:
-        context: './docker-runtime'
-        dockerfile: Dockerfile
-        args:
-          WWWUSER: '${WWWUSER}'
-          WWWGROUP: '${WWWGROUP:-33}'
-      image: sail-7.4/app
-      ports:
-        - '8000:80'
-      environment:
-        LARAVEL_SAIL: 1
-      volumes:
-        - '${PWD:-./}:/app'
-      depends_on:
-        - mysql
-        - redis
-    mysql:
-      image: mariadb
-      env_file: ".env"
-      environment:
-        MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
-        MYSQL_DATABASE: '${DB_DATABASE}'
-        MYSQL_USER: '${DB_USERNAME}'
-        MYSQL_DB_HOST: '${DB_HOST}'
-        MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-      ports:
-        - '3306:3306'
-      volumes:
-        - 'sailmysql:/var/lib/mysql'
-    redis:
-      image: 'redis:alpine'
-      ports:
-        - '${FORWARD_REDIS_PORT:-6379}:6379'
-      volumes:
-        - 'sailredis:/data'
-      healthcheck:
-        test: ["CMD", "redis-cli", "ping"]
+  app: &app 
+  build:
+    context: .
+    dockerfile: Dockerfile
+  user: "${APP_UID:-10001}:${APP_GID:-10001}"
+  ports:
+    - '8000:80'
+  environment:
+    LARAVEL_SAIL: 1
+    APP_DEBUG: 'true'
+    REDIS_HOST: redis
+    DB_HOST: mysql
+  volumes:
+    - '${PWD:-./}:/app'
+  depends_on:
+    - mysql
+    - redis
+
+  mysql:
+    image: mariadb:alpine
+    env_file: ".env"
+    environment:
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_DATABASE: '${DB_DATABASE}'
+      MYSQL_USER: '${DB_USERNAME}'
+      MYSQL_DB_HOST: '${DB_HOST}'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    ports:
+      - '3306:3306'
+    volumes:
+      - 'sailmysql:/var/lib/mysql'
+
+  redis:
+    image: 'redis:alpine'
+    ports:
+      - '${FORWARD_REDIS_PORT:-6379}:6379'
+    volumes:
+      - 'sailredis:/data'
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+
+  queue:
+    "<<": *app
+    command: php /app/artisan queue:work --memory=256 --sleep=1
+
+  cron:
+    "<<": *app
+    command: supercronic /etc/supercronic/laravel # it runs artisan schedule:run
+
 volumes:
   sailmysql:
     driver: local
