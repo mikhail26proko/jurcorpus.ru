@@ -17,3 +17,7 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+
+/storage/_db
+/storage/_redis
+/storage/docker

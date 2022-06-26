@@ -1,45 +1,49 @@
-version: '3'
+version: '3.8'
 services:
-    app:
-      build:
-        context: './docker-runtime'
-        dockerfile: Dockerfile
-        args:
-          WWWUSER: '${WWWUSER}'
-          WWWGROUP: '${WWWGROUP:-33}'
-      image: sail-7.4/app
-      ports:
-        - '8000:80'
-      environment:
-        LARAVEL_SAIL: 1
-      volumes:
-        - '${PWD:-./}:/app'
-      depends_on:
-        - mysql
-        - redis
-    mysql:
-      image: mariadb
-      env_file: ".env"
-      environment:
-        MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
-        MYSQL_DATABASE: '${DB_DATABASE}'
-        MYSQL_USER: '${DB_USERNAME}'
-        MYSQL_DB_HOST: '${DB_HOST}'
-        MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-      ports:
-        - '3306:3306'
-      volumes:
-        - 'sailmysql:/var/lib/mysql'
-    redis:
-      image: 'redis:alpine'
-      ports:
-        - '${FORWARD_REDIS_PORT:-6379}:6379'
-      volumes:
-        - 'sailredis:/data'
-      healthcheck:
-        test: ["CMD", "redis-cli", "ping"]
-volumes:
-  sailmysql:
-    driver: local
-  sailredis:
-    driver: local
+  db:
+    image: postgres:14.4-alpine
+    container_name: pg-db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./storage/_db:/var/lib/postgresql
+
+  webserver:
+    image: nginx:1.21.4-alpine
+    container_name: nginx-webserver
+    restart: always
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+      - ./storage/docker/logs/nginx/:/var/logs/nginx/
+    ports:
+      - "80:80"
+    links:
+      - app
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    volumes:
+      - ./storage/_redis:/data:rw
+    ports:
+      - "6379:6379"
+
+  app:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    container_name: app
+    restart: always
+    ports:
+      - ":9000"
+    volumes:
+      - ./:/var/www
+      - ./docker/php/php.ini:/user/local/etc/php/conf.d/extend-php.ini
+    depends_on:
+      - db
