@@ -32,3 +32,9 @@ Route::get('/home', function () {
 Route::get('/admin', function () {
     echo "Тут будет админ панель";
 });
+
+Route::get('set-locale/{locale}', function ($locale) {
+    App::setLocale($locale);
+    session()->put('locale', $locale);
+    return redirect()->back();
+});
