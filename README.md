@@ -1,3 +1,3 @@
 # JurCorpus
 
-Added new docker-compose.yml
+I am helping in the development of this project.
