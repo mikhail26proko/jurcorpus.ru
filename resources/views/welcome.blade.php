@@ -18,7 +18,6 @@
 
     </HEAD>
     <BODY class="antialiased">
-        <div class="text-center">{{ app()->setlocale('ru') }}</div>
-        {{ __('test text') }}
+        <b>{{ __('text') }}</b>
     </BODY>
 </HTML>
