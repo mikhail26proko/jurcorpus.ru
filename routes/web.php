@@ -1,5 +1,6 @@
 <?php
 
+use App\Services\Localization\LocalizationService;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,28 +14,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/','/ru');
+Route::group(
+  [
+    'prefix' => LocalizationService::locale(),
+    'middleware' => 'setLocale'
+  ],
+  function () {
 
-Route::group(['prefix' => '{locale}'],function(){
-
-  Route::get('/', function () {
+    Route::get('/', function () {
       return view('welcome');
-  });
+    });
 
-  Route::get('/home', function () {
+    Route::get('/home', function () {
       $menu = [
-          'main' => 'Главная',
-          'about' => 'О компании',
-          'team' => 'Команда',
-          'blog' => 'Блог',
-          'vas' => 'Высший арбитражный суд',
-          'smi' => 'СМИ о нас',
-          'contacts' => 'Контакты'
+        'main' => 'Главная',
+        'about' => 'О компании',
+        'team' => 'Команда',
+        'blog' => 'Блог',
+        'vas' => 'Высший арбитражный суд',
+        'smi' => 'СМИ о нас',
+        'contacts' => 'Контакты'
       ];
       return view('layout/home', ['menu' => $menu]);
-  });
-  Route::get('/admin', function () {
+    });
+    Route::get('/admin', function () {
       echo 'Тут будет админ панель';
-  });
-  
-});
+    });
+  }
+);
