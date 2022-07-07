@@ -21,3 +21,5 @@ yarn-error.log
 /storage/_db
 /storage/_redis
 /storage/docker
+
+/AdminLTE-3.2.0
