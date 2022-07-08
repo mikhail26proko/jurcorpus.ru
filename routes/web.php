@@ -21,9 +21,7 @@ Route::group(
   ],
   function () {
 
-    Route::get('/', function () {
-      return view('welcome');
-    });
+    Route::get('/admin', [App\Http\Controllers\admin\AdminController::class, 'index']);
 
     Route::get('/home', function () {
       $menu = [
@@ -36,9 +34,6 @@ Route::group(
         'contacts' => 'Контакты'
       ];
       return view('layout/home', ['menu' => $menu]);
-    });
-    Route::get('/admin', function () {
-      echo 'Тут будет админ панель';
     });
   }
 );
