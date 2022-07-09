@@ -16,24 +16,26 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(
   [
-    'prefix' => LocalizationService::locale(),
-    'middleware' => 'setLocale'
+      'prefix' => LocalizationService::locale(),
+      'middleware' => 'setLocale',
   ],
   function () {
+      Route::prefix('admin')->group(function () {
+          Route::get('/', [App\Http\Controllers\admin\AdminController::class, 'index']);
+      });
 
-    Route::get('/admin', [App\Http\Controllers\admin\AdminController::class, 'index']);
+      Route::get('/home', function () {
+          $menu = [
+              'main' => 'Главная',
+              'about' => 'О компании',
+              'team' => 'Команда',
+              'blog' => 'Блог',
+              'vas' => 'Высший арбитражный суд',
+              'smi' => 'СМИ о нас',
+              'contacts' => 'Контакты',
+          ];
 
-    Route::get('/home', function () {
-      $menu = [
-        'main' => 'Главная',
-        'about' => 'О компании',
-        'team' => 'Команда',
-        'blog' => 'Блог',
-        'vas' => 'Высший арбитражный суд',
-        'smi' => 'СМИ о нас',
-        'contacts' => 'Контакты'
-      ];
-      return view('layout/home', ['menu' => $menu]);
-    });
+          return view('layout/home', ['menu' => $menu]);
+      });
   }
 );
