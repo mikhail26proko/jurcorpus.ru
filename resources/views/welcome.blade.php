@@ -18,6 +18,6 @@
 
     </HEAD>
     <BODY class="antialiased">
-
+        <b>{{ __('welcome') }}</b>
     </BODY>
 </HTML>
