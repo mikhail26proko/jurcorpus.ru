@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale'  => 'ru',
+    'locale' => 'ru',
     'locales' => ['ru', 'ua', 'en'],
 
     /*
@@ -162,7 +162,6 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
 
         /*
          * Package Service Providers...
