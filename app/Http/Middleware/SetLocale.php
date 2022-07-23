@@ -8,19 +8,24 @@ use Illuminate\Support\Facades\App;
 
 class SetLocale
 {
-  /**
-   * Handle an incoming request.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-   * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
-   */
-  public function handle(Request $request, Closure $next)
-  {
-    $langPrefix = ltrim($request->route()->getPrefix(), '/');
-    if ($langPrefix) {
-      App::setlocale($langPrefix);
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     */
+    public function handle(Request $request, Closure $next)
+    {
+        $langPrefix = ltrim($request->route()->getPrefix(), '/');
+        if (strpos($langPrefix, '/') !== false) {
+            $langPrefix = strstr($langPrefix, '/', true);
+        }
+
+        if ($langPrefix) {
+            App::setlocale($langPrefix);
+        }
+
+        return $next($request);
     }
-    return $next($request);
-  }
 }

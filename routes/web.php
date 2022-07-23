@@ -17,11 +17,14 @@ use Illuminate\Support\Facades\Route;
 Route::group(
   [
     'prefix' => LocalizationService::locale(),
-    'middleware' => 'setLocale'
+    'middleware' => 'setLocale',
   ],
   function () {
+    Route::prefix('admin')->group(function () {
+      Route::get('/', [App\Http\Controllers\admin\AdminController::class, 'index']);
+    });
 
-    Route::get('/', function () {
+    Route::get('/welcome', function () {
       return view('welcome');
     });
 
@@ -33,12 +36,10 @@ Route::group(
         'blog' => 'Блог',
         'vas' => 'Высший арбитражный суд',
         'smi' => 'СМИ о нас',
-        'contacts' => 'Контакты'
+        'contacts' => 'Контакты',
       ];
+
       return view('layout/home', ['menu' => $menu]);
-    });
-    Route::get('/admin', function () {
-      echo 'Тут будет админ панель';
     });
   }
 );
