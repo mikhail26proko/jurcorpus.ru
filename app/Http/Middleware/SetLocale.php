@@ -18,7 +18,10 @@ class SetLocale
     public function handle(Request $request, Closure $next)
     {
         $langPrefix = ltrim($request->route()->getPrefix(), '/');
-        $langPrefix = strstr($langPrefix, '/', true);
+        if (strpos($langPrefix, '/') !== false) {
+            $langPrefix = strstr($langPrefix, '/', true);
+        }
+
         if ($langPrefix) {
             App::setlocale($langPrefix);
         }
