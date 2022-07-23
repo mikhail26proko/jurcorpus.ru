@@ -1,60 +1,141 @@
-/*Variables*/
-$main_logo_width    : 3rem;
-$main_logo_heigth   : 1rem;
+@import "node_modules/bootstrap/dist/css/bootstrap";
 
-$main_color         : #ffffff;
-$main_red_color     : #7b3e37;
+$leftBarwidth: 320px;
+$topBarheight: 7.5rem;
+$footerHeight: 2rem;
 
+$bodyColor: #F5F5F5;
+$shadowColor: lightgray;
+$redColor: #900000;
 
 html {
-    position: relative;
-    max-width: 100%;
+  position: relative;
     min-height: 100%;
 }
-body{
-    min-width: 320px;
-}
-div.leftMainMenu{
-    // float:left;
-    min-width:300px;
-    width:$main_logo_width;
-    height: 100%;
-    background: $main_color;
-    box-shadow: 0 0 10px rgb(0 0 0 / 35);
-    padding: 15px 20px;
-    div.menu_item{
-        font-weight: bold;
-        text-transform: uppercase;
-        min-height: 3rem;
-        vertical-align: middle;
-    }
+
+body {
+    padding-top: $topBarheight;
+    margin-bottom: 4.5rem;
+    padding-left: $leftBarwidth;
+    background: $bodyColor;
 }
 
-div.main{
-    // float:right;
+a{
+  color:black;
 }
 
-.upMainMenu{
-    width: 100%;
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: $footerHeight;
+  line-height: $footerHeight;
+  font-size: small;
+  color:darkgrey;
+  background-color: lightgray;
+  a{
+    color:darkgray;
+  }
 }
-div.logotype{
-    height:4rem;
-    margin: 15px 20px;
-}
+
 .logo{
-    width: 100%;
+  width: 202px;
+  margin: 18px 25px;
 }
 
-.center{
-    margin: 0 auto;
+.navbar{
+  box-shadow: 0 0 15px $shadowColor;
 }
 
-.red_hand{
-    color:#ff0000;
-    font-family: "Snell Roundhand"
+.navbar-brand{
+  z-index: 100;
+  margin-right: 4rem;
+}
+
+.nav-link:hover {
+  transition: all 0.4s;
+}
+
+.nav-item{
+  padding: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-top: 16px;
+  margin-left: 28px;
+}
+
+.nav-link-collapse:after {
+  float: right;
+  content: '\f067';
+  font-family: 'FontAwesome';
+}
+
+.nav-link-show:after {
+  float: right;
+  content: '\f068';
+  font-family: 'FontAwesome';
+}
+
+.nav-item ul.nav-second-level {
+  padding-left: 0;
+}
+
+.nav-item ul.nav-second-level > .nav-item {
+  padding-left: 20px;
+}
+
+div.lang{
+  margin: 0 auto;
+  .langLink{
+    width   : 40px;
+    height  : 20px;
+    margin  : 5px;
+  }
 }
 
 
+.container-fluid:before {
+  content: "";
+  width: calc(100% - $leftBarwidth - 50px);
+  height: calc(100vh - $topBarheight - 50px);
+  position: absolute;
+  background: 
+    url(../images/home_jurcorpus.svg),
+    url(../images/home_full_text.png),
+    url(../images/home_logo.png),
+    url(../images/home_busines.png);
+  background-position:
+    20% 45%,
+    center 90%,
+    7% 43%,
+    150% center;
+  background-size:
+    60%,
+    60%,
+    15%,
+    70%;
+  background-repeat: no-repeat;
+  // background-size: 75%,auto,auto,auto,100%;
+}
 
-@import '~bootstrap';
-@import '~bootstrap-icons/font/bootstrap-icons';
+@media (min-width: 992px) {
+  .sidenav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: $leftBarwidth;
+    height: calc(100vh);
+    padding-top: calc($topBarheight);
+    background: #ffffff;
+    box-sizing: border-box;
+    box-shadow: 0 0 15px $shadowColor;
+  }
+
+  .navbar-expand-lg .sidenav {
+    flex-direction: column;
+  }
+
+  .footer {
+    width: calc(100% - $leftBarwidth);
+  }
+}

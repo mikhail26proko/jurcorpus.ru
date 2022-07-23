@@ -1,3 +1,11 @@
 {
-  "welcome": "Welcome"
+  "welcome"   : "Welcome",
+  "locale"    : "en",
+    "home"      : "Main",
+    "about"     : "About",
+    "team"      : "Team",
+    "blog"      : "Blog",
+    "vas"       : "Highest Court",
+    "smi"       : "Mass media",
+    "contacts"  : "Сontacts"
 }

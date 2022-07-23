@@ -1,6 +1,16 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
-    "/img/favicon.ico": "/img/favicon.ico",
-    "/img/logo.png": "/img/logo.png"
+    "/images/favicon.ico": "/images/favicon.ico",
+    "/images/flags/en.svg": "/images/flags/en.svg",
+    "/images/flags/es.svg": "/images/flags/es.svg",
+    "/images/flags/ru.svg": "/images/flags/ru.svg",
+    "/images/flags/ua.svg": "/images/flags/ua.svg",
+    "/images/home_busines.png": "/images/home_busines.png",
+    "/images/home_full_text.png": "/images/home_full_text.png",
+    "/images/home_full_text.svg": "/images/home_full_text.svg",
+    "/images/home_jurcorpus.svg": "/images/home_jurcorpus.svg",
+    "/images/home_logo.png": "/images/home_logo.png",
+    "/images/home_logo.svg": "/images/home_logo.svg",
+    "/images/logo.png": "/images/logo.png"
 }

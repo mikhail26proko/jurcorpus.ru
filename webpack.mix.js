@@ -1,5 +1,4 @@
 const mix = require('laravel-mix');
-
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -12,7 +11,7 @@ const mix = require('laravel-mix');
  */
 
 // mix.disableNotifications();  
-mix.copy('resources/img/*.*', 'public/img/')
+mix.copy('resources/images/', 'public/images/')
     .sass('resources/sass/app.scss', 'public/css')
     .js('resources/js/app.js', 'public/js')
 

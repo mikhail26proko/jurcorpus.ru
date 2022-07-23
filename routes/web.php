@@ -21,25 +21,23 @@ Route::group(
   ],
   function () {
     Route::prefix('admin')->group(function () {
-      Route::get('/', [App\Http\Controllers\admin\AdminController::class, 'index']);
+      Route::get('/', [App\Http\Controllers\Admin\AdminController::class, 'index']);
     });
 
-    Route::get('/welcome', function () {
-      return view('welcome');
-    });
+    $menu = [
+        'home',
+        'about',
+        'team',
+        'blog',
+        'vas',
+        'smi',
+        'contacts',
+    ];
 
-    Route::get('/home', function () {
-      $menu = [
-        'main' => 'Главная',
-        'about' => 'О компании',
-        'team' => 'Команда',
-        'blog' => 'Блог',
-        'vas' => 'Высший арбитражный суд',
-        'smi' => 'СМИ о нас',
-        'contacts' => 'Контакты',
-      ];
+    Route::view('/', 'layout/home', ['menu' => $menu]);
 
-      return view('layout/home', ['menu' => $menu]);
-    });
-  }
+    foreach ($menu as $item) {
+        Route::view('/' . $item, 'layout/' . $item, ['menu' => $menu]);
+    }
+}
 );
