@@ -10,18 +10,18 @@ $redColor: #900000;
 
 html {
   position: relative;
-    min-height: 100%;
+  min-height: 100%;
 }
 
 body {
-    padding-top: $topBarheight;
-    margin-bottom: 4.5rem;
-    padding-left: $leftBarwidth;
-    background: $bodyColor;
+  padding-top: $topBarheight;
+  margin-bottom: 4.5rem;
+  padding-left: $leftBarwidth;
+  background: $bodyColor;
 }
 
-a{
-  color:black;
+a {
+  color: black;
 }
 
 .footer {
@@ -31,23 +31,24 @@ a{
   height: $footerHeight;
   line-height: $footerHeight;
   font-size: small;
-  color:darkgrey;
+  color: darkgrey;
   background-color: lightgray;
-  a{
-    color:darkgray;
+
+  a {
+    color: darkgray;
   }
 }
 
-.logo{
+.logo {
   width: 202px;
   margin: 18px 25px;
 }
 
-.navbar{
+.navbar {
   box-shadow: 0 0 15px $shadowColor;
 }
 
-.navbar-brand{
+.navbar-brand {
   z-index: 100;
   margin-right: 4rem;
 }
@@ -56,7 +57,7 @@ a{
   transition: all 0.4s;
 }
 
-.nav-item{
+.nav-item {
   padding: 10px;
   font-weight: bold;
   text-transform: uppercase;
@@ -80,26 +81,72 @@ a{
   padding-left: 0;
 }
 
-.nav-item ul.nav-second-level > .nav-item {
+.nav-item ul.nav-second-level>.nav-item {
   padding-left: 20px;
 }
 
-div.lang{
+div.lang {
   margin: 0 auto;
-  .langLink{
-    width   : 40px;
-    height  : 20px;
-    margin  : 5px;
+
+  .langLink {
+    width: 40px;
+    height: 20px;
+    margin: 5px;
   }
 }
 
+
+.stamp {
+	width: 400px;
+	height: 600px;
+	display: inline-block;
+	padding: 10px;
+  float:left;
+  margin-left:50px;
+  margin-top: 50px;
+	background: white;
+	position: relative;
+  text-align:center;
+	-webkit-filter: drop-shadow(0px 0px 10px rgba(0,0,0,0.5));
+	background: radial-gradient(
+		transparent 0px, 
+		transparent 8px, 
+		white 8px,
+		white
+	);
+	background-size: 20px 20px;
+	background-position: -10px -10px;
+}
+.stamp:after {
+	content: '';
+	position: absolute;
+	/*We can shrink the pseudo element here to hide the shadow edges*/
+	left: 15px; top: 15px; right: 15px; bottom: 15px;
+	z-index: -1;
+}
+
+.map{
+  float:left;
+  width: 100%;
+  max-width: calc(100% - 200px - 400px);
+  margin:50px;
+  -webkit-filter: drop-shadow(0px 0px 10px rgba(0,0,0,0.5));
+}
+
+div.white{
+  width : 100%;
+  height:100%;
+  padding: 50px;
+  text-align: left;
+  background: white;
+}
 
 .container-fluid:before {
   content: "";
   width: calc(100% - $leftBarwidth - 50px);
   height: calc(100vh - $topBarheight - 50px);
   position: absolute;
-  background: 
+  background:
     url(../images/home_jurcorpus.svg),
     url(../images/home_full_text.png),
     url(../images/home_logo.png),
