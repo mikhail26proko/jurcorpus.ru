@@ -1,2 +1,3 @@
-global.jquery = global.jQuery = global.$ = require('jquery');
-require('./bootstrap');
+// global.jquery = global.jQuery = global.$ = require('jquery');
+// window.Popper = require('popper.js');
+require('bootstrap');

@@ -1,4 +1,4 @@
-@import "node_modules/bootstrap/dist/css/bootstrap";
+@import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 $leftBarwidth: 320px;
 $topBarheight: 7.5rem;
@@ -7,7 +7,6 @@ $footerHeight: 2rem;
 $bodyColor: #F5F5F5;
 $shadowColor: lightgray;
 $redColor: #900000;
-
 html {
   position: relative;
   min-height: 100%;
@@ -17,11 +16,15 @@ body {
   padding-top: $topBarheight;
   margin-bottom: 4.5rem;
   padding-left: $leftBarwidth;
-  background: $bodyColor;
+  background: $bodyColor;  
+  @media (max-width:992px) {
+    padding-left: 0px;
+  }
 }
 
-a {
+a, a:hover{
   color: black;
+  text-decoration: none !important;
 }
 
 .footer {
@@ -87,7 +90,11 @@ a {
 
 div.lang {
   margin: 0 auto;
-
+  width: 300px;
+  align-items: center;
+  button{
+    background: white;
+  }
   .langLink {
     width: 40px;
     height: 20px;
@@ -95,6 +102,13 @@ div.lang {
   }
 }
 
+.lang_text{
+  text-transform: uppercase;
+}
+
+.center{
+  margin: 0 auto;
+}
 
 .stamp {
 	width: 400px;
@@ -163,6 +177,9 @@ div.white{
     70%;
   background-repeat: no-repeat;
   // background-size: 75%,auto,auto,auto,100%;
+  @media (max-width:992px) {
+    width:100%;
+  }
 }
 
 @media (min-width: 992px) {

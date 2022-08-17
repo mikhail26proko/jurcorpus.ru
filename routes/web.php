@@ -1,8 +1,9 @@
 <?php
 
 use App\Services\Localization\LocalizationService;
+use App\Http\Controllers\admin\AdminController;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,24 +21,27 @@ Route::group(
     'middleware' => 'setLocale',
   ],
   function () {
-    Route::prefix('admin')->group(function () {
-      Route::get('/', [App\Http\Controllers\Admin\AdminController::class, 'index']);
-    });
+
+    // $menu = $request -> get('menu');
 
     $menu = [
-        'home',
-        'about',
-        'team',
-        'blog',
-        'vas',
-        'smi',
-        'contacts',
+      'home',
+      'about',
+      'team',
+      'blog',
+      // 'vas',
+      'smi',
+      'contacts',
     ];
+
+    Route::prefix('admin')->group(function () {
+      Route::get('/', [AdminController::class, 'index']);
+    });
 
     Route::view('/', 'layout/home', ['menu' => $menu]);
 
     foreach ($menu as $item) {
         Route::view('/' . $item, 'layout/' . $item, ['menu' => $menu]);
     }
-}
+  }
 );

@@ -1,0 +1,13 @@
+#!/bin/sh
+
+ip -4 route list match 0/0 | awk '{print $3" host.docker.internal"}' >> /etc/hosts
+
+groupmod -g $(stat -c '%u' /app) www-data
+usermod -u $(stat -c '%u' /app) -g $(stat -c '%u' /app) www-data
+
+test -f /app/vendor/autoload.php || composer install
+
+php artisan config:clear && \
+  php artisan cache:clear && \
+  composer dump-autoload && \
+  php artisan route:clear
